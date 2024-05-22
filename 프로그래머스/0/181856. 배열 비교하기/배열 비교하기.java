@@ -3,7 +3,13 @@ class Solution {
         // 배열의 길이 비교
         if (arr1.length > arr2.length) {
             return 1;
-        } else if (arr1.length < arr2.length) {
+        } 
+        
+        if (arr1.length < arr2.length) {
+            return -1;
+        } 
+        
+        else if (arr1.length < arr2.length) {
             return -1;
         } else {
             // 배열의 길이가 같은 경우 원소의 합을 계산하여 비교
