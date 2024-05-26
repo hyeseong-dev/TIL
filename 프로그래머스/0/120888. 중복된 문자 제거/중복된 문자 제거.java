@@ -1,8 +1,10 @@
 class Solution {
     public String solution(String my_string) {
         String answer = "";
-        for(String ch : my_string.split("")){
-            if(!answer.contains(ch)) answer += ch;
+        for(int i=0; i<my_string.length(); i++){
+            if(!answer.contains(String.valueOf(my_string.charAt(i)))){
+                answer += my_string.charAt(i);
+            }
         }
         return answer;
     }
