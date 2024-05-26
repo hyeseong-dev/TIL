@@ -1,18 +1,12 @@
 class Solution {
     public int solution(int num, int k) {
-        int answer = -1;
+        String s = String.valueOf(num);
 
-        String tmpStr = String.valueOf(num);
-        String[] tmpStrList = tmpStr.split("");
-
-        for(int i=0; i<tmpStrList.length; i++){
-            if(Integer.valueOf(tmpStrList[i])== k){
-                answer = i + 1;
-                break;
-            };
-
+        for(int i = 0; i < s.length(); i++){
+            if(s.charAt(i) - '0' == k){
+                return i + 1;
+            }
         }
-
-        return answer;
+        return -1;
     }
 }
