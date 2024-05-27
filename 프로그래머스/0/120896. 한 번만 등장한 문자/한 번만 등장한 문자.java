@@ -1,28 +1,19 @@
 import java.util.*;
 class Solution {
     public String solution(String s) {
-        String answer = "";
-
-        Map<String, Integer> a = new HashMap<String, Integer>();
-        for (int i = 0; i < s.length(); i++) {
-            String key = s.charAt(i) + "";
-            if(a.get(key) == null){
-                a.put( key,  1);
-            }else{
-                a.put( key,  a.get(key) + 1);
-            }
+        Map<Character, Integer> charMap = new HashMap<>();
+        for(char c: s.toCharArray()){
+            charMap.put(c, charMap.getOrDefault(c, 0) + 1);
         }
 
-        List<String> keySet = new ArrayList<>(a.keySet());
-        Collections.sort(keySet);
-
-        for (String key : keySet) {
-            if(a.get(key) == 1){
-                answer += key;
+        StringBuilder sb = new StringBuilder();
+        for(char c: charMap.keySet()){
+            if(charMap.get(c) == 1){
+                sb.append(c);
             }
-
         }
-
-        return answer;
+        char[] charArr = sb.toString().toCharArray();
+        Arrays.sort(charArr);
+        return new String(charArr);
     }
 }
