@@ -1,5 +1,3 @@
-
-
 import java.io.*;
 import java.util.*;
 
@@ -19,7 +17,7 @@ public class Main {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 //        BufferedReader br = new BufferedReader(new StringReader(input));
-//        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 //
         String[] firstLine = br.readLine().split(" ");
         int N = Integer.parseInt(firstLine[0]);
@@ -35,10 +33,14 @@ public class Main {
             hashMap.put(name, hashMap.getOrDefault(name, 0) + 1);
         }
 
-        System.out.println(treeSet.size());
+        bw.write(String.valueOf(treeSet.size())); // 결과 개수 출력
+        bw.newLine(); // 새로운 줄에 출력
         for(String name : treeSet){
-            System.out.println(name);
+            bw.write(name); // 결과 출력
+            bw.newLine(); // 새로운 줄에 출력
         }
+        bw.flush(); // 버퍼 비우기
+        bw.close(); // BufferedWriter 닫기
 //        bw.write(treeSet.toString());
 //        bw.flush();
 //        bw.close();
