@@ -1,16 +1,14 @@
+
 import java.io.*;
 import java.util.*;
 
-
 public class Main {
 
-    private static String QUESTION_MARK = "?";
+    private static final String QUESTION_MARK = "?";
 
     public static void main(String[] args) throws IOException {
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        try {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out))) {
 
             // 끝말잇기 기록의 길이 N
             int recordSize = Integer.parseInt(br.readLine());
@@ -27,99 +25,91 @@ public class Main {
             int M = Integer.parseInt(br.readLine());
 
             // 후보 단어를 저장할 리스트
-            List<String> candidates = new ArrayList<>();
-
+            Set<String> candidateSet = new HashSet<>();
+            List<String> candidateList = new ArrayList<>();
 
             // 후보 단어 입력
             for (int i = 0; i < M; i++) {
-                candidates.add(br.readLine());
+                String candidate = br.readLine();
+                candidateSet.add(candidate);
+                candidateList.add(candidate);
             }
-            if (record.size() == 1 && candidates.size() == 1) {
-                bw.append(candidates.get(0));
-                bw.flush();
+
+            // 끝말잇기 기록이 1개이고 후보 단어가 1개인 경우 바로 출력하고 종료
+            if (record.size() == 1 && candidateList.size() == 1) {
+                bw.write(candidateList.get(0));
                 return;
             }
 
-            List<String> copiedCandidates = new ArrayList<>(candidates);
-
             // 후보 단어 중 끝말잇기에 있는 단어 삭제하기
-            copiedCandidates.removeAll(record);
+            candidateSet.removeAll(record);
 
-            char endChar;
-            char startChar;
-
-
-            String firsElement = record.get(0); // 끝말잇기 0번째 인덱스의 요소(단어 혹은 `?`)
-            String lastElement = record.get(recordSize - 1); // 끝말잇기 마지막 인덱스의 요소(단어 혹은 `?`
-
-            StringBuilder sb = new StringBuilder();
-            if (firsElement.equals(QUESTION_MARK)) {
-                // ?가 끝말잇기 기록의 0인덱스인 경우, 후보 단어의 마지막 문자와 일치하는 것 가져오기
-                // 끝말잇기 기록 리스트 인덱스 1에서 문자를 선택하고 0번째 인덱스를 선택 char를 추출
-                if (record.size() > 1) {
-                    startChar = record.get(1).charAt(0);
-
-                    for (String candidate : copiedCandidates) {
-                        // 후보 단어가 끝말잇기 규칙에 맞는지 확인
-                        if (candidate.charAt(candidate.length() - 1) == startChar) {
-                            sb.append(candidate);
-                            break;
-                        }
-                    }
-                }
-
-            } else if (lastElement.equals(QUESTION_MARK)) {
-                // ?가 끝말잇기 기록의 마지막인 경우,
-                //  끝말잇기 기록 마지막 인덱스 앞의 요소 가져와서 요소의 마지막 char 가져오기
-                //  후보 단어 중 첫 문자와 일치하는 것 가져오기
-                if (record.size() > 1) {
-                    String previousRecord = record.get(recordSize - 2);
-                    endChar = previousRecord.charAt(previousRecord.length() - 1);
-
-                    for (String candidate : copiedCandidates) {
-                        // 후보 단어가 끝말잇기 규칙에 맞는지 확인
-                        if (candidate.charAt(0) == endChar) {
-                            sb.append(candidate);
-                            break;
-                        }
-                    }
-                }
-
-
-            } else {
-                // ?문자 앞뒤 인덱스에 단어가 있는 경우,
-                // 끝말잇기 기록의 첫 단어의 끝 글자와 마지막 단어의 첫 글자를 비교하여 후보 단어 중에서 선택
-                char lastChr = 0;
-                char firstChr = 0;
-
-                for (int i = 1; i < recordSize - 1; i++) {
-                    if (record.get(i).equals(QUESTION_MARK)) {
-                        String previousWord = record.get(i - 1);
-                        lastChr = previousWord.charAt(previousWord.length() - 1);
-
-                        String afterWord = record.get(i + 1);
-                        firstChr = afterWord.charAt(0);
-                        break;
-                    }
-                }
-
-                for (String candidate : copiedCandidates) {
-                    if (candidate.charAt(0) == lastChr && candidate.charAt(candidate.length() - 1) == firstChr) {
-                        sb.append(candidate);
-                        break;
-                    }
-                }
-            }
-
-            bw.append(sb.toString());
-            bw.flush();
-
-        }finally {
-            bw.close();
-            br.close();
-        }
-
+            String result = findMatchingWord(record, candidateSet);
+            bw.write(result);
         }
     }
 
+    private static String findMatchingWord(List<String> record, Set<String> candidates) {
+        int recordSize = record.size();
+        String firstElement = record.get(0);
+        String lastElement = record.get(recordSize - 1);
 
+        if (firstElement.equals(QUESTION_MARK)) {
+            return handleFirstQuestionMark(record, candidates);
+        } else if (lastElement.equals(QUESTION_MARK)) {
+            return handleLastQuestionMark(record, candidates);
+        } else {
+            return handleMiddleQuestionMark(record, candidates);
+        }
+    }
+
+    private static String handleFirstQuestionMark(List<String> record, Set<String> candidates) {
+        if (record.size() <= 1) {
+            return "";
+        }
+
+        char startChar = record.get(1).charAt(0);
+
+        for (String candidate : candidates) {
+            if (candidate.charAt(candidate.length() - 1) == startChar) {
+                return candidate;
+            }
+        }
+        return "";
+    }
+
+    private static String handleLastQuestionMark(List<String> record, Set<String> candidates) {
+        if (record.size() <= 1) {
+            return "";
+        }
+
+        String previousRecord = record.get(record.size() - 2);
+        char endChar = previousRecord.charAt(previousRecord.length() - 1);
+
+        for (String candidate : candidates) {
+            if (candidate.charAt(0) == endChar) {
+                return candidate;
+            }
+        }
+        return "";
+    }
+
+    private static String handleMiddleQuestionMark(List<String> record, Set<String> candidates) {
+        for (int i = 1; i < record.size() - 1; i++) {
+            if (record.get(i).equals(QUESTION_MARK)) {
+                String previousWord = record.get(i - 1);
+                char lastChr = previousWord.charAt(previousWord.length() - 1);
+
+                String afterWord = record.get(i + 1);
+                char firstChr = afterWord.charAt(0);
+
+                for (String candidate : candidates) {
+                    if (candidate.charAt(0) == lastChr && candidate.charAt(candidate.length() - 1) == firstChr) {
+                        return candidate;
+                    }
+                }
+            }
+        }
+        return "";
+    }
+}
