@@ -1,37 +1,23 @@
-
-// 메모리 :
-// 시간 :
-
 import java.io.*;
 
 public class Main {
-    static int LOWERCASE_NUM = 96;
-    static int PRIME31 = 31;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int L = Integer.parseInt(br.readLine());
+        String str = br.readLine();
+        br.close();
 
-    static String solution(BufferedReader br) throws IOException{
+        long hash = 0;
+        long r = 31;
+        long M = 1234567891;
+        long powerOfR = 1;
 
-        int cycle = Integer.parseInt(br.readLine());
-        char[] charArray = br.readLine().toCharArray();
-        long answer = 0L;
-
-        for(int i = 0; i < cycle; i++){
-            long num = (charArray[i] - LOWERCASE_NUM);
-            long powNum = (long) Math.pow(PRIME31, i);
-            answer = answer + (num * powNum);
+        for (int i = 0; i < L; i++) {
+            int charValue = str.charAt(i) - 'a' + 1;
+            hash = (hash + charValue * powerOfR) % M;
+            powerOfR = (powerOfR * r) % M;
         }
-        return String.valueOf(answer);
-    }
 
-    public static void main(String[] args) {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out))) {
-
-            String answer = solution(br);
-            bw.write(answer);
-            bw.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        System.out.println(hash);
     }
 }
-
