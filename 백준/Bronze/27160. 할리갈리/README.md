@@ -4,7 +4,7 @@
 
 ### 성능 요약
 
-메모리: 211528 KB, 시간: 1108 ms
+메모리: 208700 KB, 시간: 924 ms
 
 ### 분류
 
@@ -12,7 +12,7 @@
 
 ### 제출 일자
 
-2024년 5월 30일 10:46:02
+2024년 6월 6일 10:31:33
 
 ### 문제 설명
 
@@ -40,9 +40,9 @@
 
 <p>카드의 정보는 공백으로 구분된, 과일의 종류를 나타내는 문자열 <mjx-container class="MathJax" jax="CHTML" style="font-size: 109%; position: relative;"><mjx-math class="MJX-TEX" aria-hidden="true"><mjx-mi class="mjx-i"><mjx-c class="mjx-c1D446 TEX-I"></mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>S</mi></math></mjx-assistive-mml><span aria-hidden="true" class="no-mathjax mjx-copytext">$S$</span></mjx-container>와 과일의 개수를 나타내는 양의 정수 <mjx-container class="MathJax" jax="CHTML" style="font-size: 109%; position: relative;"><mjx-math class="MJX-TEX" aria-hidden="true"><mjx-mi class="mjx-i"><mjx-c class="mjx-c1D44B TEX-I"></mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>X</mi></math></mjx-assistive-mml><span aria-hidden="true" class="no-mathjax mjx-copytext">$X$</span></mjx-container>로 이루어져 있습니다. </p>
 
-<p><mjx-container class="MathJax" jax="CHTML" style="font-size: 109%; position: relative;"> <mjx-math class="MJX-TEX" aria-hidden="true"><mjx-mi class="mjx-i"><mjx-c class="mjx-c1D446 TEX-I"></mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>S</mi></math></mjx-assistive-mml><span aria-hidden="true" class="no-mathjax mjx-copytext">$S$</span></mjx-container>는 <span style="color:#e74c3c;"><code>STRAWBERRY</code></span>, <span style="color:#e74c3c;"><code>BANANA</code></span>, <span style="color:#e74c3c;"><code>LIME</code></span>, <span style="color:#e74c3c;"><code>PLUM</code></span> 중 하나입니다.</p>
+<p><mjx-container class="MathJax" jax="CHTML" style="font-size: 109%; position: relative;"> <mjx-math class="MJX-TEX" aria-hidden="true"><mjx-mi class="mjx-i"><mjx-c class="mjx-c1D446 TEX-I"></mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>S</mi></math></mjx-assistive-mml><span aria-hidden="true" class="no-mathjax mjx-copytext">$S$</span></mjx-container>는 <span style="color: rgb(231, 76, 60); --darkreader-inline-color: #e95849;" data-darkreader-inline-color=""><code>STRAWBERRY</code></span>, <span style="color: rgb(231, 76, 60); --darkreader-inline-color: #e95849;" data-darkreader-inline-color=""><code>BANANA</code></span>, <span style="color: rgb(231, 76, 60); --darkreader-inline-color: #e95849;" data-darkreader-inline-color=""><code>LIME</code></span>, <span style="color: rgb(231, 76, 60); --darkreader-inline-color: #e95849;" data-darkreader-inline-color=""><code>PLUM</code></span> 중 하나입니다.</p>
 
 ### 출력 
 
- <p>한별이가 종을 쳐야 하면 <span style="color:#e74c3c;"><code>YES</code></span>을, 아니면 <span style="color:#e74c3c;"><code>NO</code></span>를 출력해주세요.</p>
+ <p>한별이가 종을 쳐야 하면 <span style="color: rgb(231, 76, 60); --darkreader-inline-color: #e95849;" data-darkreader-inline-color=""><code>YES</code></span>을, 아니면 <span style="color: rgb(231, 76, 60); --darkreader-inline-color: #e95849;" data-darkreader-inline-color=""><code>NO</code></span>를 출력해주세요.</p>
 

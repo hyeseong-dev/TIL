@@ -1,12 +1,14 @@
+import java.io.*;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Main {
+
     public static Map<String, Integer> fruitFactory(){
-        // 4종 과일의 총 합이 5개일 경우 YES 그렇지 않으면 NO
-        // 접근1 : HASHMAP으로 풀기
-        Map<String, Integer> fruits = new HashMap<String, Integer>();
+        Map<String, Integer> fruits = new HashMap<>();
         fruits.put("BANANA", 0);
         fruits.put("PLUM", 0);
         fruits.put("LIME", 0);
@@ -16,27 +18,26 @@ public class Main {
 
     public static void main(String[] args) {
         String answer = "NO";
-
         Scanner scanner = new Scanner(System.in);
         int scNum = scanner.nextInt();
-        scanner.nextLine(); // 개행 문자 처리  / ** 중요 **
+        scanner.nextLine(); // 개행 문자 처리
 
-        // 4종 과일의 총 합이 5개일 경우 YES 그렇지 않으면 NO
-        // 접근1 : HASHMAP으로 풀기
         Map<String, Integer> fruits = fruitFactory();
-
 
         for (int i = 1; i <= scNum; i++) {
             String strRaw = scanner.nextLine();
-            String []strList = strRaw.split(" ");
+            String[] strList = strRaw.split(" ");
             String fruitName = strList[0];
             int fruitNum = Integer.parseInt(strList[1]);
-            fruits.put(fruitName, fruits.get(fruitName)+fruitNum);
+            fruits.put(fruitName, fruits.get(fruitName) + fruitNum);
         }
 
-        for(Map.Entry<String, Integer> entry : fruits.entrySet()){
-            if(entry.getValue() == 5 ) answer = "YES";
+        // HashSet을 이용해 5개의 과일이 존재하는지 확인
+        Set<Integer> fruitCounts = new HashSet<>(fruits.values());
+        if (fruitCounts.contains(5)) {
+            answer = "YES";
         }
+
         System.out.println(answer);
         scanner.close();
     }
