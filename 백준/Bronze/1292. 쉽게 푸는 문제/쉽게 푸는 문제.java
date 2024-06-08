@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -10,34 +9,30 @@ public class Main {
         int B = scanner.nextInt();
         scanner.close();
 
-        // 수열 생성
-        ArrayList<Integer> sequence = generateSequence(1000);
-
         // 구간의 합 계산
-        int result = sumOfSubsequence(sequence, A, B);
+        int result = sumOfSubsequence(A, B);
 
         // 결과 출력
         System.out.println(result);
     }
 
-    // 주어진 limit까지 수열을 생성합니다.
-    public static ArrayList<Integer> generateSequence(int limit) {
-        ArrayList<Integer> sequence = new ArrayList<>();
-        int num = 1;
-        while (sequence.size() < limit) {
-            for (int i = 0; i < num; i++) {
-                sequence.add(num);
-            }
-            num++;
-        }
-        return sequence;
-    }
-
     // 수열의 A번째부터 B번째까지의 합을 계산합니다.
-    public static int sumOfSubsequence(ArrayList<Integer> sequence, int A, int B) {
+    public static int sumOfSubsequence(int A, int B) {
         int sum = 0;
-        for (int i = A - 1; i < B; i++) {
-            sum += sequence.get(i);
+        int count = 0;
+        int number = 1;
+
+        // B까지의 숫자들의 합을 구합니다.
+        for (int i = 1; count < B; i++) {
+            for (int j = 0; j < i; j++) {
+                count++;
+                if (count >= A && count <= B) {
+                    sum += i;
+                }
+                if (count == B) {
+                    break;
+                }
+            }
         }
         return sum;
     }
