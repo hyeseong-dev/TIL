@@ -1,35 +1,62 @@
-import java.util.Scanner;
+
+
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    static final int DIVIDER_TEN = 10;
+
+    public static void main(String[] args) throws IOException {
+//        BufferedReader br = new BufferedReader(new StringReader(input1()));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         // 핸드폰 번호 입력
-        String A = scanner.next();
-        String B = scanner.next();
+        String phoneNumberA = br.readLine();
+        String phoneNumberB = br.readLine();
 
         // 번갈아가며 병합한 문자열 생성
-        StringBuilder merged = new StringBuilder();
+        StringBuilder mergedPhoneNumbers = new StringBuilder();
         for (int i = 0; i < 8; i++) {
-            merged.append(A.charAt(i)).append(B.charAt(i));
+            mergedPhoneNumbers.append(phoneNumberA.charAt(i)).append(phoneNumberB.charAt(i));
         }
 
         // 병합된 문자열을 리스트로 변환
-        int[] nums = new int[16];
+        int[] phoneNumberDigits = new int[16];
         for (int i = 0; i < 16; i++) {
-            nums[i] = Character.getNumericValue(merged.charAt(i));
+            phoneNumberDigits[i] = Character.getNumericValue(mergedPhoneNumbers.charAt(i));
         }
 
-        // 인접한 두 숫자를 더한 값의 일의 자리를 계산
-        while (nums.length > 2) {
-            int[] newNums = new int[nums.length - 1];
-            for (int i = 0; i < nums.length - 1; i++) {
-                newNums[i] = (nums[i] + nums[i + 1]) % 10;
+        // 인접한 두 숫자를 더한 값의 일의 자리를 계산 (두 포인터 방식)
+        while (phoneNumberDigits.length > 2) {
+            int[] newPhoneNumberDigits = new int[phoneNumberDigits.length - 1];
+            int left = 0;
+            int right = 1;
+            int index = 0;
+            while (right < phoneNumberDigits.length) {
+                newPhoneNumberDigits[index++] = (phoneNumberDigits[left] + phoneNumberDigits[right]) % DIVIDER_TEN;
+                left++;
+                right++;
             }
-            nums = newNums;
+            phoneNumberDigits = newPhoneNumberDigits;
         }
 
         // 결과 출력
-        System.out.printf("%d%d\n", nums[0], nums[1]);
+        for (int digit : phoneNumberDigits) {
+            bw.write(String.valueOf(digit));
+        }
+
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+
+    // 예제 출력1 26
+    static String input1() {
+        return "74759336\n" + "36195974";
+    }
+
+    // 예제 출력2 02
+    static String input2() {
+        return "01234567\n" + "12345678";
     }
 }
