@@ -1,6 +1,7 @@
 
 
 import java.io.*;
+import java.util.stream.IntStream;
 
 public class Main {
     static final int DIVIDER_TEN = 10;
@@ -26,19 +27,31 @@ public class Main {
             phoneNumberDigits[i] = Character.getNumericValue(mergedPhoneNumbers.charAt(i));
         }
 
-        // 인접한 두 숫자를 더한 값의 일의 자리를 계산 (두 포인터 방식)
+
+        // 인접한 두 숫자를 더한 값의 일의 자리를 계산 ***IntStream을 사용하여 처리***
         while (phoneNumberDigits.length > 2) {
-            int[] newPhoneNumberDigits = new int[phoneNumberDigits.length - 1];
-            int left = 0;
-            int right = 1;
-            int index = 0;
-            while (right < phoneNumberDigits.length) {
-                newPhoneNumberDigits[index++] = (phoneNumberDigits[left] + phoneNumberDigits[right]) % DIVIDER_TEN;
-                left++;
-                right++;
-            }
-            phoneNumberDigits = newPhoneNumberDigits;
+            int[] finalPhoneNumberDigits = phoneNumberDigits;
+            phoneNumberDigits = IntStream.range(0, phoneNumberDigits.length - 1)
+                    .map(i -> (finalPhoneNumberDigits[i] + finalPhoneNumberDigits[i + 1]) % DIVIDER_TEN)
+                    .toArray();
         }
+
+
+        // 인접한 두 숫자를 더한 값의 일의 자리를 계산 ***두 포인터 방식*****
+//        while (phoneNumberDigits.length > 2) {
+//            int[] newPhoneNumberDigits = new int[phoneNumberDigits.length - 1];
+//            int left = 0;
+//            int right = 1;
+//            int index = 0;
+//            while (right < phoneNumberDigits.length) {
+//                newPhoneNumberDigits[index++] = (phoneNumberDigits[left] + phoneNumberDigits[right]) % DIVIDER_TEN;
+//                left++;
+//                right++;
+//            }
+//            phoneNumberDigits = newPhoneNumberDigits;
+//        }
+
+
 
         // 결과 출력
         for (int digit : phoneNumberDigits) {
