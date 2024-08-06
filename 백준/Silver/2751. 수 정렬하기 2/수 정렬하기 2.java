@@ -1,28 +1,38 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Set;
-import java.util.TreeSet;
+import java.io.OutputStreamWriter;
 
-/**
- * 둘째 줄부터 N개의 줄에는 수가 주어진다. 이 수는 절댓값이 1,000,000보다 작거나 같은 정수이다. 수는 중복되지 않는다
- */
 public class Main {
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int n = Integer.parseInt(br.readLine());
-
-		Set<Integer> set = new TreeSet<>();
-		for (int i = 0; i < n; i++) {
-			set.add(Integer.parseInt(br.readLine()));
-		}
-
-		StringBuilder sb = new StringBuilder();
-		for (int result : set) {
-			sb.append(result).append("\n");
-		}
-
-		System.out.println(sb);
-	}
-
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        
+        // 입력 처리
+        int N = Integer.parseInt(br.readLine());
+        // 최대 절댓값이 1,000,000이므로 계수 배열의 크기는 2,000,001
+        int MAX_VAL = 1000000;
+        int OFFSET = 1000000;  // 계수 배열을 0 기준으로 맞추기 위한 오프셋
+        
+        // 계수 배열 생성
+        boolean[] count = new boolean[2 * MAX_VAL + 1];
+        
+        // 숫자 읽고 계수 배열 업데이트
+        for (int i = 0; i < N; i++) {
+            int num = Integer.parseInt(br.readLine());
+            count[num + OFFSET] = true;  // 해당 숫자가 존재한다고 표시
+        }
+        
+        // 정렬된 결과 출력
+        for (int i = 0; i < count.length; i++) {
+            if (count[i]) {
+                bw.write((i - OFFSET) + "\n");
+            }
+        }
+        
+        // 자원 해제
+        br.close();
+        bw.close();
+    }
 }
